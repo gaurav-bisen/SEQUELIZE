@@ -11,6 +11,11 @@ export default (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here(relationships)
+      // user => profile relation 
+      User.hasOne(models.admin, {
+        foreignKey: 'userId',
+        onDelete: 'CASCADE'
+      })
     }
   }
   User.init({
