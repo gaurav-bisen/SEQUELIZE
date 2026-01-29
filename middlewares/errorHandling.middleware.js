@@ -2,10 +2,13 @@
 
 const errorHandling = (err, req, res, next)=>{
     console.log(err.stack);
-    res.status(500).json({
+    const status = err.status || 500;
+    const message = err.message || 'Internal Server Error';
+
+    res.status(status).json({
         status: 500,
-        message: "Something went wrong",
-        error: err.message
+        message,
+        // error: err.message
     })
 }
 
