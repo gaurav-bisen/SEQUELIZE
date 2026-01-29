@@ -29,12 +29,21 @@ export default (sequelize, DataTypes) => {
     },
     name: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: { msg: 'Name is required!' },
+        notEmpty: { msg: 'Name cannot be empty' }
+      }
     },
     email: {
       type: DataTypes.STRING,
       unique: true,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        notNull: { msg: 'Email is required!' },
+        notEmpty: { msg: 'Email cannot be empty' },
+        
+      }
     },
     status: {
       type: DataTypes.STRING,
