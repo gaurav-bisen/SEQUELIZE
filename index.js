@@ -11,15 +11,13 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
-//Error handling middleware
-app.use(errorHandling);
 
 //ROUTES
 app.use('/api/v1/users', userRoute);
 
-app.get("/", (req, res)=>{
-    res.send("Server is running!")
-})
+
+//Error handling middleware
+app.use(errorHandling);
 
 //Server running
 app.listen(port, () => {

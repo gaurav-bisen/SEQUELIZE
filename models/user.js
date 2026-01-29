@@ -54,7 +54,8 @@ export default (sequelize, DataTypes) => {
     sequelize,
     modelName: 'User',
     //to set timestamp default
-    timestamps: true  //by this automatically update created_at updated_at
+    timestamps: true,  //by this automatically update created_at updated_at
+    paranoid: true, //for soft delete
   });
   return User;
 };
