@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken'
 import { verifyToken } from '../utils/jwt.util.js'
 
-export const authenticate = (req, res, next)=>{
+export const authenticate = (req, res, next) => {
     let authHeader = req.headers.Authorization || req.headers.authorization;
 
     if (!authHeader || !authHeader.startsWith("Bearer")) {
@@ -16,8 +16,11 @@ export const authenticate = (req, res, next)=>{
         if (!token) {
             return res.status(401).json({ message: "No token, authorization denied!!" })
         }
-        
+
         const decode = verifyToken(token);
+
+        //token in body
+        req.body.token = token;
 
         req.user = decode;
         console.log("The decoded user is: ", req.user);

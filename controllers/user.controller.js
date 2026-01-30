@@ -1,14 +1,15 @@
 import userService from '../services/user/user.service.js'
 import signupService from '../services/user/signup.service.js'
 import authService from '../services/user/auth.service.js'
+import loggedInUserService from '../services/user/loggedInUser.service.js';
 import { handleResponse } from '../utils/handleResponse.util.js';
 
 class UserController {
   async signUp(req, res, next) {
     try {
-      const {name, email, status, password, role} = req.body;
+      const { name, email, status, password, role } = req.body;
 
-      const user = await signupService.signup({name, email, status, password, role});
+      const user = await signupService.signup({ name, email, status, password, role });
 
       handleResponse(res, {
         status: 201,
@@ -22,11 +23,11 @@ class UserController {
     }
   }
 
-  async login(req, res, next){
+  async login(req, res, next) {
     try {
       const { email, password } = req.body;
 
-      const { token, user } = await authService.login({ email, password})
+      const { token, user } = await authService.login({ email, password })
 
       handleResponse(res, {
         status: 201,
@@ -39,6 +40,20 @@ class UserController {
 
     } catch (error) {
       next(error);
+    }
+  }
+
+  async loggedInUser(req, res, next) {
+    try {
+      const user = await loggedInUserService.loggedUser();
+
+      handleResponse(res, {
+        status: 200,
+        message: "User fetched SuccessFully!",
+        data: user
+      });
+    } catch (error) {
+      next(error)
     }
   }
 
@@ -61,13 +76,13 @@ class UserController {
   async getAllUsers(req, res, next) {
     try {
       const users = await userService.getAllUsers();
-  
+
       handleResponse(res, {
         status: 200,
         message: "All Users fetched SuccessFully!",
         data: users
       });
-  
+
     } catch (error) {
       next(error);
     }
@@ -77,13 +92,13 @@ class UserController {
     try {
       const { id } = req.params;
       const user = await userService.getUserById(id);
-  
+
       handleResponse(res, {
         status: 200,
         message: "User fetched SuccessFully!",
         data: user
       });
-  
+
     } catch (error) {
       next(error);
     }
@@ -94,13 +109,13 @@ class UserController {
       //hard delete
       const { id } = req.params;
       const user = await userService.deleteUser(id);
-  
+
       handleResponse(res, {
         status: 200,
         message: "User deleted SuccessFully!",
         data: user
       });
-  
+
     } catch (error) {
       next(error)
     }
@@ -110,13 +125,13 @@ class UserController {
     try {
       const { id } = req.params;
       const user = await userService.updateUser(id, req.body);
-  
+
       handleResponse(res, {
         status: 200,
         message: "User Updated SuccessFully!",
         data: user
       });
-  
+
     } catch (error) {
       next(error);
     }

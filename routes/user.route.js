@@ -8,11 +8,13 @@ router.post('/signup', userController.signUp);
 
 router.post('/login', userController.login);
 
+router.post('/currentuser', authenticate, userController.loggedInUser);
+
 // router.post('/', userController.createUser);
 
-router.get('/', userController.getAllUsers);
+router.get('/', authenticate, userController.getAllUsers);
 
-router.get('/:id',authenticate, userController.getUserById);
+router.get('/:id', authenticate, userController.getUserById);
 
 router.delete('/:id', userController.deleteUser);
 
