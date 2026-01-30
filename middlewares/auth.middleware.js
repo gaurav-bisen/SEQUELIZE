@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken'
+import { verifyToken } from '../utils/jwt.util.js'
 
 export const authenticate = (req, res, next)=>{
     let authHeader = req.headers.Authorization || req.headers.authorization;
@@ -16,7 +17,8 @@ export const authenticate = (req, res, next)=>{
             return res.status(401).json({ message: "No token, authorization denied!!" })
         }
         
-        const decode = jwt.verify(token, process.env.SECRET_KEY);
+        const decode = verifyToken(token);
+
         req.user = decode;
         console.log("The decoded user is: ", req.user);
         next();

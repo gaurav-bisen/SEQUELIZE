@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import signupService from './signup.service.js'
+import { generateToken } from '../../utils/jwt.util.js'
 
 class AuthService {
     async login({ email, password }) {
@@ -26,10 +27,7 @@ class AuthService {
         await user.update({ last_login_at: new Date() });
 
         // Generate JWT
-        const token = jwt.sign({
-            id: user.id,
-            email: user.email
-        }, process.env.SECRET_KEY, { expiresIn: '1d' });
+        const token = generateToken({id: user.id, email: user.email});
 
         return { token, user }
     }
