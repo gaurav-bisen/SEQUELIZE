@@ -1,22 +1,62 @@
-import userService from '../services/user.service.js'
+import userService from '../services/user/user.service.js'
+import signupService from '../services/user/signup.service.js'
+import authService from '../services/user/auth.service.js'
 import { handleResponse } from '../utils/handleResponse.util.js';
 
 class UserController {
-  async createUser(req, res, next) {
+  async signUp(req, res, next) {
     try {
-      const user = await userService.createUser(req.body);
+      const {name, email, status, password, role} = req.body;
+
+      const user = await signupService.signup({name, email, status, password, role});
 
       handleResponse(res, {
         status: 201,
-        message: "User Created SuccessFully!",
+        message: "User Signup SuccessFully!",
         data: user
       });
 
     } catch (error) {
       console.log(error);
+      next(error)
+    }
+  }
+
+  async login(req, res, next){
+    try {
+      const { email, password } = req.body;
+
+      const { token, user } = await authService.login({ email, password})
+
+      handleResponse(res, {
+        status: 201,
+        message: "User Login SuccessFully!",
+        data: {
+          token: token,
+          user
+        }
+      });
+
+    } catch (error) {
       next(error);
     }
   }
+
+  // async createUser(req, res, next) {
+  //   try {
+  //     const user = await userService.createUser(req.body);
+
+  //     handleResponse(res, {
+  //       status: 201,
+  //       message: "User Created SuccessFully!",
+  //       data: user
+  //     });
+
+  //   } catch (error) {
+  //     console.log(error);
+  //     next(error);
+  //   }
+  // }
 
   async getAllUsers(req, res, next) {
     try {

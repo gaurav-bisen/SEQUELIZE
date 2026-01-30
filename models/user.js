@@ -11,11 +11,6 @@ export default (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here(relationships)
-      // user => profile relation 
-      User.hasOne(models.admin, {
-        foreignKey: 'userId',
-        onDelete: 'CASCADE'
-      })
     }
   }
   User.init({
@@ -42,13 +37,28 @@ export default (sequelize, DataTypes) => {
       validate: {
         notNull: { msg: 'Email is required!' },
         notEmpty: { msg: 'Email cannot be empty' },
-        
       }
     },
     status: {
       type: DataTypes.STRING,
       defaultValue: 'active'
-    }
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: { msg: 'Password is required!' },
+        notEmpty: { msg: 'Password cannot be empty' },      
+      }
+    },
+    role: {
+      type: DataTypes.ENUM('user', 'admin'),
+      defaultValue: 'user'
+    },
+    last_login_at: {
+      type: DataTypes.DATE,
+      allowNull: true
+    },
   
   }, {
     sequelize,
@@ -56,6 +66,7 @@ export default (sequelize, DataTypes) => {
     //to set timestamp default
     timestamps: true,  //by this automatically update created_at updated_at
     paranoid: true, //for soft delete
+    underscored: true //map camelcase field in migration
   });
   return User;
 };

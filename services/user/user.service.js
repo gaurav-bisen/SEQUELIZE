@@ -1,21 +1,21 @@
-import db from '../models/index.js'
+import db from '../../models/index.js'
 const { User } = db;
 
 
 class UserService {
-    async createUser(userData) {
-        const existingUser = await User.findOne({
-            where: { email: userData.email }
-        });
+    // async createUser(userData) {
+    //     const existingUser = await User.findOne({
+    //         where: { email: userData.email }
+    //     });
 
-        if (existingUser) {
-            throw {
-                status: 409,
-                message: 'User already exists'
-            };
-        }
-        return await User.create(userData);
-    }
+    //     if (existingUser) {
+    //         throw {
+    //             status: 409,
+    //             message: 'User already exists'
+    //         };
+    //     }
+    //     return await User.create(userData);
+    // }
 
     async getAllUsers() {
         const users = await User.findAll({});
