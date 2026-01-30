@@ -112,16 +112,9 @@ export const updateUser = async (req, res, next) => {
     try {
       const { id } = req.params;
 
-      // if(!id){
-      //   return handleResponse(res, {
-      //     status: 400,
-      //     message: 'User Not Exists'
-      //   });
-      // }
-
       // const user = await User.findByPk(id);
 
-      // if(!user){
+      // if(user){
       //   return handleResponse(res, {
       //     status: 404,
       //     message: 'User Not Found'

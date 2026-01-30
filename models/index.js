@@ -17,6 +17,7 @@ const config = configFile[env];
 
 const db = {}; //when we create any model , we can acces it in any controller like db.model_name.finall()
 
+//create connection to db
 let sequelize;
 if (config.use_env_variable) {
   sequelize = new Sequelize(process.env[config.use_env_variable], config);
@@ -29,9 +30,9 @@ if (config.use_env_variable) {
   );
 }
 
-// read all model files
+// Reading all model files automatically
 const files = fs
-  .readdirSync(__dirname)
+  .readdirSync(__dirname) //synchronously read the contents of a given directory
   .filter(file => {
     return (
       file.indexOf('.') !== 0 &&
