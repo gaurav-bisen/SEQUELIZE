@@ -1,19 +1,29 @@
 import express from 'express'
 import dotenv from "dotenv"
+dotenv.config();
 import userRoute from './routes/user.route.js'
 import errorHandling from './middlewares/errorHandling.middleware.js';
-dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 //MIDDLEWARES
 app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
 
 
 //ROUTES
 app.use('/api/v1/users', userRoute);
+
+// app.get('/email', async (req, res) => {
+//     const mail = new Mail();
+//     mail.setTo(process.env.EMAIL_TO);
+//     mail.setSubject("test email");
+//     mail.setText("Hello FROM content");
+//     await mail.send();
+
+//     res.send('Email triggered')
+// })
 
 
 //Error handling middleware

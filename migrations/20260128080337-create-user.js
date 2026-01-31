@@ -17,6 +17,10 @@ export async function up(queryInterface, Sequelize) {
       unique: true,
       allowNull: false
     },
+    is_verified: {
+      type: Sequelize.BOOLEAN,
+      defaultValue: false
+    },
     status: {
       type: Sequelize.STRING,
       defaultValue: 'active'

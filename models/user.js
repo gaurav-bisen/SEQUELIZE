@@ -39,6 +39,10 @@ export default (sequelize, DataTypes) => {
         notEmpty: { msg: 'Email cannot be empty' },
       }
     },
+    isVerified: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
     status: {
       type: DataTypes.STRING,
       defaultValue: 'active'
@@ -48,7 +52,7 @@ export default (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         notNull: { msg: 'Password is required!' },
-        notEmpty: { msg: 'Password cannot be empty' },      
+        notEmpty: { msg: 'Password cannot be empty' },
       }
     },
     role: {
@@ -59,7 +63,7 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.DATE,
       allowNull: true
     },
-  
+
   }, {
     sequelize,
     modelName: 'User',

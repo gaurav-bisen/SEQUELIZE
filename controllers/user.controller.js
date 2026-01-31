@@ -1,7 +1,10 @@
 import userService from '../services/user/user.service.js'
 import signupService from '../services/user/signup.service.js'
+import mail from '../services/nodemailer/email.service.js'
 import authService from '../services/user/auth.service.js'
+import verifyEmailService from '../services/user/verifyEmail.service.js'
 import loggedInUserService from '../services/user/loggedInUser.service.js';
+import { generateEmailToken } from '../utils/emailToken.util.js'
 import { handleResponse } from '../utils/handleResponse.util.js';
 
 class UserController {
@@ -11,15 +14,42 @@ class UserController {
 
       const user = await signupService.signup({ name, email, status, password, role });
 
+      const emailToken = generateEmailToken(user);
+
+      await mail.sendVerificationEmail(
+        emailToken, user.email
+      );
+
       handleResponse(res, {
         status: 201,
-        message: "User Signup SuccessFully!",
+        message: " Signup SuccessFull! Please verify your email.",
         data: user
       });
 
     } catch (error) {
       console.log(error);
       next(error)
+    }
+  }
+
+  async verifyEmail(req, res, next){
+    try {
+      const {token} = req.query;
+      const result = await verifyEmailService.verify(token);
+
+      if (result.alreadyVerified) {
+        return res.json({
+          message: 'Email already verified'
+        });
+      }
+
+      handleResponse(res, {
+        status: 200,
+        message: " Email verified successfully"
+      });
+
+    } catch (error) {
+      next(error);
     }
   }
 

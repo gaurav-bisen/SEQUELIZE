@@ -6,6 +6,8 @@ import userController from '../controllers/user.controller.js'
 
 router.post('/signup', userController.signUp);
 
+router.get('/verify_email', userController.verifyEmail)
+
 router.post('/login', userController.login);
 
 router.post('/currentuser', authenticate, userController.loggedInUser);

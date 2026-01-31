@@ -19,6 +19,7 @@ class SignupUser{
         return await User.create({
             name,
             email,
+            isVerified: false,
             status,
             password: hashPassword,
             role
