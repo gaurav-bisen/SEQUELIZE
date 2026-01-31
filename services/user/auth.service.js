@@ -14,6 +14,11 @@ class AuthService {
             };
         }
 
+         // CHECK if user is verified
+        if (!user.isVerified) {
+            throw { status: 403, message: 'Please verify your email before logging in.' };
+        }
+
         //compare password
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {

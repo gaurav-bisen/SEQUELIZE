@@ -29,7 +29,7 @@ class SignupUser{
     async getUserByEmail(email) {
         return await User.findOne({
             where: {email},
-            attributes: ['id','name',  'email','status', 'password','role', 'last_login_at']
+            attributes: ['id','name',  'email','status', 'password','role', 'last_login_at', 'isVerified']
         });
     }
 }
