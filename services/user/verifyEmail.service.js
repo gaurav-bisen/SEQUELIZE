@@ -24,8 +24,8 @@ class verifyEmail {
         }
 
         if (user.isVerified) {
-            return { alreadyVerified: true };
-          }
+            return { alreadyVerified: true }; //sending verified status
+        }
 
         user.isVerified = true;
         await user.save();
