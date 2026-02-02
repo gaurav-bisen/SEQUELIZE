@@ -21,7 +21,7 @@ router.post('/currentuser', authenticate, userController.loggedInUser);
 
 // router.post('/', userController.createUser);
 
-router.get('/', authenticate, userController.getAllUsers);
+router.get('/', userController.getAllUsers);
 
 router.get('/:id', authenticate, userController.getUserById);
 

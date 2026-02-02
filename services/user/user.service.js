@@ -17,8 +17,13 @@ class UserService {
     //     return await User.create(userData);
     // }
 
-    async getAllUsers() {
-        const users = await User.findAll({});
+    async getAllUsers(page ,size, sortByField, orderByType) {
+
+        const users = await User.findAndCountAll({
+            limit: size,
+            offset: (page-1) * size ,
+            order: [[sortByField, orderByType]]
+        });
 
         if (!users) {
             throw {

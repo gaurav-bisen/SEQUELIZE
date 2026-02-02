@@ -147,12 +147,39 @@ class UserController {
 
   async getAllUsers(req, res, next) {
     try {
-      const users = await userService.getAllUsers();
+      
+
+      //paginationlet { page, size, sortBy, order } = req.query;
+      page = parseInt(page);
+      size = parseInt(size);
+
+      let pageNum = 1;
+      if (page > 0) {
+        pageNum = page;
+      }
+
+      let pageSize = 10;
+      if (size > 0 && size <= 15) {
+        pageSize = size;
+      }
+
+      // sorting 
+      const allowedSortFields = ['createdAt', 'name', 'email', 'id'];
+      const sortByField = allowedSortFields.includes(sortBy) ? sortBy : 'createdAt';
+
+      const orderByType = order && order.toLowerCase() === 'asc' ? 'ASC' : 'DESC';
+
+
+      const users = await userService.getAllUsers(pageNum, pageSize, sortByField, orderByType);
 
       handleResponse(res, {
         status: 200,
         message: "All Users fetched SuccessFully!",
-        data: users
+
+        data: {
+          total_pages: Math.ceil(users.count / pageSize),
+          users
+        }
       });
 
     } catch (error) {
