@@ -87,7 +87,6 @@ class UserController {
       handleResponse(res, {
         status: 201,
         message: " Reset Password Link send to email!",
-        data: result
       });
 
     } catch (error) {
@@ -110,7 +109,6 @@ class UserController {
       handleResponse(res, {
         status: 201,
         message: " Password Reset SuccessFully !!",
-        data: result
       });
     } catch (error) {
       next(error);

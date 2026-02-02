@@ -15,17 +15,6 @@ app.use(express.urlencoded({ extended: true }));
 //ROUTES
 app.use('/api/v1/users', userRoute);
 
-// app.get('/email', async (req, res) => {
-//     const mail = new Mail();
-//     mail.setTo(process.env.EMAIL_TO);
-//     mail.setSubject("test email");
-//     mail.setText("Hello FROM content");
-//     await mail.send();
-
-//     res.send('Email triggered')
-// })
-
-
 //Error handling middleware
 app.use(errorHandling);
 
@@ -74,3 +63,14 @@ app.listen(port, () => {
 //         console.log("Error syning db: ", error);
 //     }
 // })();
+
+//to send mail
+// app.get('/email', async (req, res) => {
+//     const mail = new Mail();
+//     mail.setTo(process.env.EMAIL_TO);
+//     mail.setSubject("test email");
+//     mail.setText("Hello FROM content");
+//     await mail.send();
+
+//     res.send('Email triggered')
+// })
