@@ -1,18 +1,20 @@
 import express from 'express'
 const router = express.Router();
 import { authenticate } from '../middlewares/auth.middleware.js';
+import { validateAJV } from '../middlewares/ajv.middleware.js'
+import userSchema from '../schema/user.schema.js'
 
 import userController from '../controllers/user.controller.js'
 
-router.post('/signup', userController.signUp);
+router.post('/signup', validateAJV(userSchema), userController.signUp);
 
 router.get('/verify_email', userController.verifyEmail)
 
-router.post('/login', userController.login);
+router.post('/login', validateAJV(userSchema), userController.login);
 
-router.post('/forget_password', userController.forgetPassword);
+router.post('/forget_password', validateAJV(userSchema), userController.forgetPassword);
 
-router.post('/reset_password', userController.resetPassword);
+router.post('/reset_password', validateAJV(userSchema), userController.resetPassword);
 
 
 router.post('/currentuser', authenticate, userController.loggedInUser);
