@@ -79,6 +79,23 @@ class Mail {
             `
         })
     }
+
+    async sendResetPasswordEmail(token, email) {
+
+        await transporter.sendMail({
+            from: {
+                address: process.env.EMAIL,
+                name: "Gaurav"
+            },
+            to: email,
+            subject: 'Reset Password',
+            html: `
+                <h3>RESET Password!</h3>
+                <p>Click the link below to reset your password:</p>
+                <p>reset password token: ${token}</p>
+            `
+        })
+    }
 }
 
 export default new Mail();

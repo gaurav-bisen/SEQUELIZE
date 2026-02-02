@@ -10,6 +10,11 @@ router.get('/verify_email', userController.verifyEmail)
 
 router.post('/login', userController.login);
 
+router.post('/forget_password', userController.forgetPassword);
+
+router.post('/reset_password', userController.resetPassword);
+
+
 router.post('/currentuser', authenticate, userController.loggedInUser);
 
 // router.post('/', userController.createUser);

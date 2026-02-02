@@ -3,6 +3,7 @@ import signupService from '../services/user/signup.service.js'
 import mail from '../services/nodemailer/email.service.js'
 import authService from '../services/user/auth.service.js'
 import verifyEmailService from '../services/user/verifyEmail.service.js'
+import forgetPasswordService from '../services/user/resetPassword.service.js'
 import loggedInUserService from '../services/user/loggedInUser.service.js';
 import { generateEmailToken } from '../utils/emailToken.util.js'
 import { handleResponse } from '../utils/handleResponse.util.js';
@@ -32,9 +33,9 @@ class UserController {
     }
   }
 
-  async verifyEmail(req, res, next){
+  async verifyEmail(req, res, next) {
     try {
-      const {token} = req.query;
+      const { token } = req.query;
       const result = await verifyEmailService.verify(token);
 
       if (result.alreadyVerified) {
@@ -68,6 +69,49 @@ class UserController {
         }
       });
 
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async forgetPassword(req, res, next) {
+    try {
+      const { email } = req.body;
+
+      if (!email) {
+        res.json({ message: "email is required!" });
+      }
+
+      const result = await forgetPasswordService.forgetPassword(email);
+
+      handleResponse(res, {
+        status: 201,
+        message: " Reset Password Link send to email!",
+        data: result
+      });
+
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async resetPassword(req, res, next) {
+    try {
+      const { token, password } = req.body;
+
+      if (!token || !password) {
+        return res.status(400).json({
+          message: "Token and password are required"
+        });
+      }
+
+      const result = await forgetPasswordService.resetPassword(token, password);
+
+      handleResponse(res, {
+        status: 201,
+        message: " Password Reset SuccessFully !!",
+        data: result
+      });
     } catch (error) {
       next(error);
     }

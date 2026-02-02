@@ -9,7 +9,7 @@ const port = process.env.PORT || 3000;
 
 //MIDDLEWARES
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 
 
 //ROUTES
