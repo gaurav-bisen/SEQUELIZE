@@ -2,8 +2,8 @@ import nodemailer from 'nodemailer';
 import dotenv from "dotenv"
 dotenv.config();
 
-console.log('EMAIL =>', process.env.EMAIL);
-console.log('PASSWORD =>', process.env.PASSWORD);
+// console.log('EMAIL =>', process.env.EMAIL);
+// console.log('PASSWORD =>', process.env.PASSWORD);
 
 
 const transporter = nodemailer.createTransport({

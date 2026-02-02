@@ -3,6 +3,8 @@ import dotenv from "dotenv"
 dotenv.config();
 import userRoute from './routes/user.route.js'
 import errorHandling from './middlewares/errorHandling.middleware.js';
+import httpLogger from './middlewares/httpLogger.middleware.js'
+import logger from './utils/logger.js';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -10,6 +12,7 @@ const port = process.env.PORT || 3000;
 //MIDDLEWARES
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(httpLogger);
 
 
 //ROUTES

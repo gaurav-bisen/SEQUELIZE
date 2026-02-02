@@ -1,0 +1,6 @@
+{"level":40,"time":1770027184062,"pid":25172,"hostname":"GauravHP","req":{"id":1,"method":"GET","url":"/api/v1/users/1","query":{},"params":{}},"res":{"statusCode":401},"responseTime":15,"msg":"request completed"}
+{"level":40,"time":1770027215364,"pid":25172,"hostname":"GauravHP","req":{"id":2,"method":"POST","url":"/api/v1/users/signup","query":{},"params":{}},"res":{"statusCode":400},"responseTime":2,"msg":"request completed"}
+{"level":40,"time":1770027221839,"pid":25172,"hostname":"GauravHP","req":{"id":3,"method":"POST","url":"/api/v1/users/signup","query":{},"params":{}},"res":{"statusCode":409},"responseTime":5,"msg":"request completed"}
+{"level":30,"time":1770027309684,"pid":4572,"hostname":"GauravHP","msg":"Server is running on http://localhost:8080"}
+{"level":30,"time":1770027311672,"pid":4640,"hostname":"GauravHP","msg":"Server is running on http://localhost:8080"}
+{"level":30,"time":1770027358105,"pid":25240,"hostname":"GauravHP","msg":"Server is running on http://localhost:8080"}
