@@ -4,7 +4,6 @@ dotenv.config();
 import userRoute from './routes/user.route.js'
 import errorHandling from './middlewares/errorHandling.middleware.js';
 import httpLogger from './middlewares/httpLogger.middleware.js'
-import logger from './utils/logger.js';
 
 const app = express();
 const port = process.env.PORT || 3000;

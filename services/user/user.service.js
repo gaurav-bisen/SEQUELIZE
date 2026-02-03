@@ -1,6 +1,6 @@
 import db from '../../models/index.js'
 const { User } = db;
-
+import {Op} from 'sequelize'
 
 class UserService {
     // async createUser(userData) {
@@ -17,12 +17,29 @@ class UserService {
     //     return await User.create(userData);
     // }
 
-    async getAllUsers(page ,size, sortByField, orderByType) {
+    async getAllUsers(page ,size, sortByField, orderByType, search) {
+
+        let whereCondition = {
+            [Op.or]: [
+                {
+                    name: {
+                        [Op.iLike]: `%${search}%`
+                    }
+                },{
+                    email: {
+                        [Op.iLike]: `%${search}%`
+                    }
+                },{
+                    status: search
+                }
+            ]
+        }
 
         const users = await User.findAndCountAll({
             limit: size,
             offset: (page-1) * size ,
-            order: [[sortByField, orderByType]]
+            order: [[sortByField, orderByType]],
+            where: whereCondition
         });
 
         if (!users) {

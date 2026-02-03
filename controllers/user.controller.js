@@ -149,7 +149,8 @@ class UserController {
     try {
       
 
-      //paginationlet { page, size, sortBy, order } = req.query;
+      //pagination
+      let { page, size, sortBy, order, search } = req.query;
       page = parseInt(page);
       size = parseInt(size);
 
@@ -169,8 +170,7 @@ class UserController {
 
       const orderByType = order && order.toLowerCase() === 'asc' ? 'ASC' : 'DESC';
 
-
-      const users = await userService.getAllUsers(pageNum, pageSize, sortByField, orderByType);
+      const users = await userService.getAllUsers(pageNum, pageSize, sortByField, orderByType, search);
 
       handleResponse(res, {
         status: 200,
