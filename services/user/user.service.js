@@ -31,6 +31,8 @@ class UserService {
                     }
                 },{
                     status: search
+                },{
+                    is_verified: search
                 }
             ]
         }
